@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/a0-with-ssr-v5",
+            "outputPath": "dist/A0-with-SSR-V5/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -91,8 +91,64 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/A0-with-SSR-V5/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "A0-with-SSR-V5:build:development",
+              "serverTarget": "A0-with-SSR-V5:server:development"
+            },
+            "production": {
+              "browserTarget": "A0-with-SSR-V5:build:production",
+              "serverTarget": "A0-with-SSR-V5:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "A0-with-SSR-V5:build:production",
+              "serverTarget": "A0-with-SSR-V5:server:production"
+            },
+            "development": {
+              "browserTarget": "A0-with-SSR-V5:build:development",
+              "serverTarget": "A0-with-SSR-V5:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "636c281f-df8c-474f-9462-c1e43c41060e"
   }
 }
