@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o --host mylocaldomain.com --ssl --ssl-key ssl\\server.key --ssl-cert ssl\\server.crt",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run a0-with-ssr:serve-ssr",

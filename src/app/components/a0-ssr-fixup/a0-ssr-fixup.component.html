@@ -1,0 +1,26 @@
+<h1>Why doesn't Auth0 work with SSR "out of the box"?</h1>
+
+<p><a href="https://stackoverflow.com/questions/47857797/how-to-use-auth0-with-angular-universal" target="_blank">How to use auth0 with angular universal</a></p>
+
+<p><a href="https://stackoverflow.com/questions/70931014/location-is-not-defined-asp-net-zero-angular-universal" target="_blank">Location is not defined asp net zero angular universal</a> (General SSR issue)</p>
+
+<p><a href="https://stackoverflow.com/questions/72012878/auth0-angular-is-not-working-fine-with-angular-ssr-universal" target="_blank">Auth0-Angular is not working fine with Angular SSR Universal</a></p>
+<p><a href="https://github.com/auth0/auth0-angular/issues/305"  target="_blank">Auth0 issues #305</a></p>
+
+<p><a href="https://stackoverflow.com/questions/75291104/how-can-auth0-be-configured-to-work-with-angular-universal-ssr-starting-from-the" target="_b">How can Auth0 be configured to work with Angular Universal SSR starting from the Sample App?</a></p>
+<p><a href="https://github.com/auth0/auth0-angular/issues/432" target="_blank">Auth0 issues #432</a></p>
+
+<p><a href="https://github.com/auth0/auth0-angular/issues/432#issuecomment-1439083525" target="_blank">Wrap and mock Auth0 Service</a></p>
+<p>Auth0 is meant to authenticate users which is not required when pre-rendering on the server.</p>
+<p>In previous versions of Auth0 it was sufficient to guard against calling Auth0 methods on the server using isPlatformBrowser or isPlatformServer, but as from v2.0.1, this is insufficient.</p>
+
+<h1>Ensure AuthModule is not imported on the server</h1> 
+
+<ul>
+    <li>Create an AuthClientService to wrap the Auth0 Service (not provided in 'root')</li>
+    <li>Create an AuthServerService to mock the AuthClientService for the SSR prerendering</li>
+    <li>Remove AuthModule from AppModule</li>
+    <li>Make an AppClientModule, which imports both AppModule and AuthModule. Provides array includes AuthClientService</li>
+    <li>Make an AppServerModule which provides the AuthServerService in place of AuthClientService</li>
+    <li>Must use dynamic configuration???</li>
+</ul>

@@ -18,16 +18,20 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "resolveJsonModule": true,
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
     ]
   },
+  "include": ["auth_config.json"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

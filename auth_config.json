@@ -1,0 +1,10 @@
+{
+  "domain": "freevote.eu.auth0.com",
+  "clientId": "QJKOZtLJRmxan9fTD7HMQ19IoPUOhUdi",
+  "authorizationParams": {
+
+  },
+  "apiUri": "http://localhost:3001",
+  "appUri": "http://mylocaldomain.com:4200",
+  "errorPath": "/error"
+}
