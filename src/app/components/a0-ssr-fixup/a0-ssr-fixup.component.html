@@ -18,7 +18,7 @@
 
 <ul>
     <li>Create an AuthClientService to wrap the Auth0 Service (not provided in 'root')</li>
-    <li>Create an AuthServerService to mock the AuthClientService for the SSR prerendering</li>
+    <li>Create an AuthServerService to mock the AuthClientService for the SSR prerendering (not provided in 'root')</li>
     <li>Remove AuthModule from AppModule</li>
     <li>Make an AppClientModule, which imports both AppModule and AuthModule. Provides array includes AuthClientService</li>
     <li>Make an AppServerModule which provides the AuthServerService in place of AuthClientService</li>
