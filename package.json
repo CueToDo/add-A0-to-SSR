@@ -1,16 +1,16 @@
 {
-  "name": "a0-with-ssr-v5",
+  "name": "a0-with-ssr",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o --host mylocaldomain.com --ssl --ssl-key ssl\\server.key --ssl-cert ssl\\server.crt",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run A0-with-SSR-V5:serve-ssr",
-    "serve:ssr": "node dist/A0-with-SSR-V5/server/main.js",
-    "build:ssr": "ng build && ng run A0-with-SSR-V5:server",
-    "prerender": "ng run A0-with-SSR-V5:prerender"
+    "dev:ssr": "ng run a0-with-ssr:serve-ssr",
+    "serve:ssr": "node dist/a0-with-ssr/server/main.js",
+    "build:ssr": "ng build && ng run a0-with-ssr:server",
+    "prerender": "ng run a0-with-ssr:prerender"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/platform-server": "^15.1.0",
     "@angular/router": "^15.1.0",
+    "@auth0/auth0-angular": "^2.0.1",
     "@nguniversal/express-engine": "^15.2.0",
     "express": "^4.15.2",
     "rxjs": "~7.8.0",

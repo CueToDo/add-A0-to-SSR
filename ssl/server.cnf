@@ -1,0 +1,11 @@
+[ req ]
+default_bits       = 4096
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+prompt             = no
+
+[ req_distinguished_name ]
+commonName         = mylocaldomain.com
+
+[ req_ext ]
+subjectAltName = DNS:mylocaldomain.com

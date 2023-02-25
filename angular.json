@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "A0-with-SSR-V5": {
+    "a0-with-ssr": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/A0-with-SSR-V5/browser",
+            "outputPath": "dist/a0-with-ssr/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "A0-with-SSR-V5:build:production"
+              "browserTarget": "a0-with-ssr:build:production"
             },
             "development": {
-              "browserTarget": "A0-with-SSR-V5:build:development"
+              "browserTarget": "a0-with-ssr:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "A0-with-SSR-V5:build"
+            "browserTarget": "a0-with-ssr:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/A0-with-SSR-V5/server",
+            "outputPath": "dist/a0-with-ssr/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
@@ -116,12 +116,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "A0-with-SSR-V5:build:development",
-              "serverTarget": "A0-with-SSR-V5:server:development"
+              "browserTarget": "a0-with-ssr:build:development",
+              "serverTarget": "a0-with-ssr:server:development"
             },
             "production": {
-              "browserTarget": "A0-with-SSR-V5:build:production",
-              "serverTarget": "A0-with-SSR-V5:server:production"
+              "browserTarget": "a0-with-ssr:build:production",
+              "serverTarget": "a0-with-ssr:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -135,12 +135,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "A0-with-SSR-V5:build:production",
-              "serverTarget": "A0-with-SSR-V5:server:production"
+              "browserTarget": "a0-with-ssr:build:production",
+              "serverTarget": "a0-with-ssr:server:production"
             },
             "development": {
-              "browserTarget": "A0-with-SSR-V5:build:development",
-              "serverTarget": "A0-with-SSR-V5:server:development"
+              "browserTarget": "a0-with-ssr:build:development",
+              "serverTarget": "a0-with-ssr:server:development"
             }
           },
           "defaultConfiguration": "production"
