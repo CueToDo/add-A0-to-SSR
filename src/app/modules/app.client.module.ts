@@ -10,7 +10,6 @@ import { environment as env } from '../../environments/environment';
 
 // Auth0
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
-import { AuthClientService } from './../services/auth.client.service';
 
 @NgModule({
   declarations: [],
@@ -25,7 +24,6 @@ import { AuthClientService } from './../services/auth.client.service';
     }),
   ],
   providers: [
-    AuthClientService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,

@@ -4,23 +4,17 @@ import { ServerModule } from '@angular/platform-server';
 import { AppModule } from './app.module';
 import { AppComponent } from '../app.component';
 
-import { AuthClientService } from '../services/auth.client.service';
-import { AuthServerService } from '../services/auth.server.service.service';
-import { AuthConfigService } from '@auth0/auth0-angular';
+import { AuthConfigService, AuthService } from '@auth0/auth0-angular';
 
 @NgModule({
-  imports: [
-    AppModule,
-    ServerModule
-  ],
-  providers:[
-    AuthServerService,
+  imports: [AppModule, ServerModule],
+  providers: [
     {
-      provide: AuthClientService,
-      useClass: AuthServerService,},
-      {provide:AuthConfigService,
-      useClass:{} as any}
+      provide: AuthService,
+      useValue: {},
+    },
+    { provide: AuthConfigService, useValue: {} as any },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppServerModule {}
