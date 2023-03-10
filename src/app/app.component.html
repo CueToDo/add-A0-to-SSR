@@ -6,4 +6,18 @@
   <span *ngIf="auth.user$ | async as user">{{ user.email }}</span>
 </div>
 
+<ul>
+<li>Auth0 dashboard won't accept http for the Login URI - it must be https (see "Add SSL" below)</li>
+<li>Auth0 dashboard won't accept localhost</li>
+</ul>
+
+<h1>Create a new Angular Application with SSR and Auth0</h1>
+<ul>
+  <li>ng new A0-with-SSR</li>
+  <li>ng add @nguniversal/express-engine</li>
+  <li>npm run prerender</li>
+</ul>
+
+
+
 <router-outlet></router-outlet>
