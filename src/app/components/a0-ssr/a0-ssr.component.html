@@ -1,96 +1,204 @@
+<p>
+  The steps below describe how this project was created from scratch to add
+  Auth0 login to an Angular Universal application using SSR.
+</p>
 
-  <h1>Add Login to Your Angular App</h1>
+<p>
+  The steps to configure login come from the
+  <a
+    href="https://auth0.com/docs/quickstart/spa/angular/interactive"
+    target="_blank"
+    >definitive Auth0 guide</a
+  >.
+</p>
+
+<p>
+  You can use your own domain for your own project*, or use the preconfigured
+  domain <strong>https://mylocaldomain.com:4200</strong> in this example.
+</p>
+
+<p>* Note that</p>
+<ul>
+  <li>
+    Auth0 dashboard won't accept <strong>http</strong> for the Login URI - it
+    must be <strong>https</strong> (see "Add SSL" below)
+  </li>
+  <li>Auth0 dashboard won't accept <strong>localhost</strong></li>
+</ul>
+
+<hr />
+
+<h1>Create a new Angular Application with SSR and Auth0</h1>
+
+<ul>
+  <li>ng new A0-with-SSR</li>
+  <li>ng add @nguniversal/express-engine</li>
+  <li>npm install @auth0/auth0-angular</li>
+</ul>
+
+<h1>Register and configure AuthModule</h1>
+
+<ul>
+  <li>
+    See
+    <a
+      href="https://auth0.com/docs/quickstart/spa/angular/interactive"
+      target="_blank"
+      _blank
+      >Auth0 Quick Start</a
+    >
+    documentation for full details
+  </li>
+  <li>
+    Import the Auth module into the app module with a static configuration - 
+    add the following to the app.module imports.
+  </li>
+</ul>
+
+<pre>
+  <code>
+    AuthModule.forRoot({{'{'}}
+      domain: 'freevote.eu.auth0.com',
+      clientId: 'QJKOZtLJRmxan9fTD7HMQ19IoPUOhUdi',
+      authorizationParams: {{'{'}}
+        redirect_uri: window.location.origin,
+        {{'}'}},
+      {{'}'}}),
+  </code>
+</pre>
+
+<ul>
+  <li>Add the AuthHttpInterceptor to providers</li>
+</ul>
+
+<pre>
+  <code>
+    providers: [
+      {{'{'}}
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthHttpInterceptor,
+        multi: true,
+      {{'}'}},
+    ],
+  </code>
+</pre>
+
+<ul>
+  <li>Inject AuthService into AppComponent</li>
+</ul>
+
+<h1>Add login and logout buttons</h1>
+
+<p></p>
+
+<ul>
+  <li>
+    Add <strong>login-button.ts</strong> and
+    <strong>logout-button.ts</strong> files to the app and copy code from <a href="https://auth0.com/docs/quickstart/spa/angular/interactive" target="_blank">Auth0 quick start</a> documentation.
+  </li>
+  <li>Import components into app.module and add to declarations</li>
+  <li>Delete all existing html in app.omponent and add the login and logout components<br>
+  This includes conditional dispaly of buttons depending on login status and display of user's email if logged in</li>
+</ul>
+
+<div>
+<img src="/assets/appcomponent.PNG" alt="app component">
+</div>
+
+<h1>Add SSL</h1>
+
+<div class="grey">
   
-  <p>The steps below describe how this project was created from scratch to add Auth0 login to an Angular Universal application using SSR. 
+  <p>
+    When configuring Auth0 in the dashboard, If you use the default dev URI
+    <strong>http://localhost:4200</strong>, you'll get an error. This relates to
+    the requirement for https and localhost is not allowed even for development.
   </p>
-  
-  <p>The steps to configure login come from the <a href="https://auth0.com/docs/quickstart/spa/angular/interactive" target="_blank">definitive Auth0 guide</a>.</p>
-  <p>You can use your own domain for your own project*, or use the preconfigured domain <strong>https://mylocaldomain.com:4200</strong> in this example.
+
+  <div><img src="/assets/LoginURI-LH.PNG" alt="imgage" /></div>
+  <div><img src="/assets/Must be https.PNG" alt="imgage" /></div>
+
+  <p>
+    The only way I've found around this is to create an entry in the hosts file
+    for a test domain pointing to 127.0.0.1 (localhost)
   </p>
-  
-  <p>* Note that</p>
-  <ul>
-  <li>Auth0 dashboard won't accept http for the Login URI - it must be https (see "Add SSL" below)</li>
-  <li>Auth0 dashboard won't accept localhost</li>
-  </ul>
-  
-  <h1>Create a new Angular Application with SSR and Auth0</h1>
-  <ul>
-    <li>ng new A0-with-SSR</li>
-    <li>ng add @nguniversal/express-engine</li>
-    <li>npm install @auth0/auth0-angular</li>
-  </ul>
-  
-  <h1>Add login and logout buttons</h1>
-  <ul>
-    <li>ng g c login-button -m app.module <br/>
-      ng g c logout-button -m app.module
-    </li>
-    <li>copy code from login-button.ts and logout-button.ts (<a href="https://auth0.com/docs/quickstart/spa/angular/interactive">Auth0 quick start</a>)</li>
-    <li>add buttons to the html files and hookup to the respective login and logout methods</li>
-    <li>Add the login and logout components to app.component</li>
-  </ul>
-  
-    <h1>Add SSL</h1>
-  
-    <p>
-      When configuring Auth0 in the dashboard, If you use http://localhost:4200 as recommended, you'll get an error. 
-      This relates to the requirement for https even in the development environment. 
-      The only way I've found around this is to create an entry in the hosts file for a test domain pointing to 127.0.0.1 (localhost)
-    </p>
-  
-    <p>The following steps are required to use mylocaldomain.com in this example</p>
+
+  <p>
+    The following steps are required to use
+    <strong>mylocaldomain.com</strong> in this example (windows)
+  </p>
+
   <ol>
     <li>Register server.crt</li>
     <li>Add entry in the hosts file</li>
     <li>Amend start script to use mylocaldomain.com</li>
   </ol>
-  
-  <p>1) In the ssl folder of this project double click on server.crt (windows)</p>
-  <p>Install certificate for Current User, placed in Trusted Root Certificateion Authorities</p>
-  
+
   <p>
-  2) On Windows, update hosts in C:\Windows\System32\drivers\etc to include:
+    1) In the ssl folder of this project double click on
+    <strong>server.crt</strong>
   </p>
-  
+
+  <p class="m10">
+    This is a previously generated self-signed certificate for
+    mylocaldomain.com.
+  </p>
+
+  <p class="m10">
+    Install the certificate for Current User, placed in Trusted Root
+    Certification Authorities
+  </p>
+
+  <p>
+    2) On Windows, update hosts in C:\Windows\System32\drivers\etc to include:
+  </p>
+
   <table>
-    <tr><td colspan="2"># localhost name resolution is handled within DNS itself.</td></tr>
-    <tr><td># 127.0.0.1</td><td>localhost</td></tr>
-    <tr><td># ::1</td><td>localhost</td></tr>
-    <tr><td>127.0.0.1</td><td>mylocaldomain.com</td></tr>
+    <tr>
+      <td colspan="2">
+        # localhost name resolution is handled within DNS itself.
+      </td>
+    </tr>
+    <tr>
+      <td># 127.0.0.1</td>
+      <td>localhost</td>
+    </tr>
+    <tr>
+      <td># ::1</td>
+      <td>localhost</td>
+    </tr>
+    <tr>
+      <td>127.0.0.1</td>
+      <td>mylocaldomain.com</td>
+    </tr>
   </table>
-  
-  <p>
-  A self-signed certificate will need to be generated and installed. More here (use mylocaldomain.com in place of localhost)
+
+  <p class="m10">
+    Back in the local Angular Application code, in
+    <strong>auth0_config.json</strong>, replace http://localhost:4200 with
+    https://mylocaldomain.com:4200 and remove audience from authorizationParams
+    (we're not concerned with the backend API here)
   </p>
-  
-  
-  
+
   <p>
-  Back in the local Angular Application code, in auth0_config.json, replace http://localhost:4200 with https://mylocaldomain.com:4200 and remove audience from authorizationParams (we're not concerned with the backend API here)
+    3) Amend the start script in <strong>package.json</strong> to use ssl with
+    the self signed certificate
   </p>
-  
-  <p>
-  3) Amend the start script in package.json to use ssl with the self signed certificate
+
+  <p class="m10">
+    "start":"ng serve -o --host mylocaldomain.com --ssl --ssl-key
+    ssl\\server.key --ssl-cert ssl\\server.crt",
   </p>
-  
-  <p>
-  "start":"ng serve -o --host mylocaldomain.com --ssl --ssl-key ssl\server.key --ssl-cert ssl\server.crt",
-  </p>
-  
-  
-  <h1>Run the application</h1>
-  <ul>
-    <li>npm start
-      <br/>At this point you can login and logout</li>
-  </ul>
-  
-  
-  
-  <h1>Run Prerender for SSR</h1>
-  <ul>
-    <li>npm run prerender</li>
-    <li>fails with "window is not defined"</li>
-  </ul>
-  
-  
+</div>
+
+<h1>Run the application</h1>
+<ul>
+  <li>npm start <br />At this point you can login and logout</li>
+</ul>
+
+<h1>Run Prerender for SSR</h1>
+<ul>
+  <li>npm run prerender</li>
+  <li>fails with <span class="red">"window is not defined"</span></li>
+  <li>Click <strong>Auth0 SSR Fixup</strong> below</li>
+</ul>

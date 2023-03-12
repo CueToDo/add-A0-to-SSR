@@ -1,23 +1,25 @@
+<h1>How can Auth0 be configured to work with Angular Universal SSR?</h1>
+
 <div>
-  <a routerLink="/a0-ssr">Auth0</a>
-  <a routerLink="/a0-ssr-fixup">Auth0-SSR-Fixup</a>
+  <button routerLink="/a0-ssr">Auth0</button>
+  <button routerLink="/a0-ssr-fixup">Auth0 SSR Fixup</button>
   <app-login-button *ngIf="!(auth.user$ | async)"></app-login-button>
   <app-logout-button *ngIf="auth.user$ | async"></app-logout-button>
   <span *ngIf="auth.user$ | async as user">{{ user.email }}</span>
 </div>
 
-<ul>
-<li>Auth0 dashboard won't accept http for the Login URI - it must be https (see "Add SSL" below)</li>
-<li>Auth0 dashboard won't accept localhost</li>
-</ul>
-
-<h1>Create a new Angular Application with SSR and Auth0</h1>
-<ul>
-  <li>ng new A0-with-SSR</li>
-  <li>ng add @nguniversal/express-engine</li>
-  <li>npm run prerender</li>
-</ul>
-
-
+<hr>
 
 <router-outlet></router-outlet>
+
+<hr>
+
+<div>
+  <button routerLink="/a0-ssr">Auth0</button>
+  <button routerLink="/a0-ssr-fixup">Auth0 SSR Fixup</button>
+  <app-login-button *ngIf="!(auth.user$ | async)"></app-login-button>
+  <app-logout-button *ngIf="auth.user$ | async"></app-logout-button>
+  <span *ngIf="auth.user$ | async as user">{{ user.email }}</span>
+</div>
+
+
